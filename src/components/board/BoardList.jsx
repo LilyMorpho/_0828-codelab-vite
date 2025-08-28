@@ -8,14 +8,14 @@ import {
   TableRow,
   Paper,
 } from "@mui/material"
-import axios from "axios"
+import { api } from "@/modules/api"
 
 export default function BoardList() {
   const [list, setList] = useState([])
 
   const getPosts = async () => {
     const url = "https://jsonplaceholder.typicode.com/posts"
-    const { data } = await axios.get(url)
+    const { data } = await api.get(url)
     setList(data)
   }
 
@@ -39,7 +39,10 @@ export default function BoardList() {
         </TableHead>
         <TableBody>
           {list.map((row) => (
-            <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+            <TableRow
+              key={row.id}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>

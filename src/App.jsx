@@ -1,21 +1,25 @@
 import "font-awesome/css/font-awesome.min.css"
 import { BrowserRouter } from "react-router-dom"
-import { Provider } from "react-redux"
-import { store } from "./Store"
+import { Provider as StoreProvider } from "react-redux"
+import { PersistGate } from "redux-persist/integration/react"
+import { store, persistor } from "./store"
 
 import "../public/css/fonts.css"
 import "../public/css/base.css"
 import "../public/css/shop.css"
 
 import Containers from "./Containers"
+import { use } from "react"
 
 function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Containers />
-      </BrowserRouter>
-    </Provider>
+    <StoreProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Containers />
+        </BrowserRouter>
+      </PersistGate>
+    </StoreProvider>
   )
 }
 

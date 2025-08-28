@@ -1,34 +1,34 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from "react"
+import axios from "axios"
 
-import FormWrapper from "../components/shop/FormWrapper";
-import PrdWrap from "../components/shop/PrdWrap";
+import FormWrapper from "../components/shop/FormWrapper"
+import PrdWrap from "../components/shop/PrdWrap"
 
 export default function ShopPage() {
-  const [prdList, setPrdList] = useState([]);
-  const [searchList, setSearchList] = useState([]);
+  const [prdList, setPrdList] = useState([])
+  const [searchList, setSearchList] = useState([])
   const onGetPrd = async () => {
-    const { data } = await axios.get("/mock/prduct.json");
-    setPrdList(data?.list || []);
-    setSearchList(data?.list || []);
-  };
+    const { data } = await axios.get("/mock/product.json")
+    setPrdList(data?.list || [])
+    setSearchList(data?.list || [])
+  }
   const onResetPrd = () => {
-    setPrdList([]);
-    setSearchList([]);
-  };
+    setPrdList([])
+    setSearchList([])
+  }
   const onChangeSearch = (search) => {
     if (search === "") {
-      setSearchList(prdList);
+      setSearchList(prdList)
     } else {
       const searchedList = prdList.filter((prd) => {
         return (
           prd.title.toLowerCase().includes(search.toLowerCase()) ||
           prd.description.toLowerCase().includes(search.toLowerCase())
-        );
-      });
-      setSearchList(searchedList);
+        )
+      })
+      setSearchList(searchedList)
     }
-  };
+  }
   return (
     <div className="containers">
       <FormWrapper
@@ -47,5 +47,5 @@ export default function ShopPage() {
         ))}
       </div>
     </div>
-  );
+  )
 }

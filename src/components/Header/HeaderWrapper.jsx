@@ -45,8 +45,6 @@ export default function HeaderWrapper() {
           Logout
         </Button>
         <Button variant="outlined">SignUp</Button>
-      </Box>
-      <Box>
         <FormControlLabel
           control={
             <Switch

@@ -11,10 +11,20 @@ import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { setTheme } from "@/Store/reducers/ui-slice"
 import { toggleTheme } from "../../Store/reducers/ui-slice"
+import { useContext } from "react"
+
+import { FirebaseContext } from "@/providers/FirebaseProviders"
+import { GoogleProvider } from "../../modules/firebase"
 
 export default function HeaderWrapper() {
   const dispatch = useDispatch()
   const theme = useSelector((state) => state.ui.theme)
+  const { signInWithPopup, auth, googleProvider } = useContext(FirebaseContext)
+
+  const onGoogleLogin = async (e) => {
+    const rs = await signInWithPopup(auth, GoogleProvider)
+    console.log(rs)
+  }
   return (
     <Box
       sx={{
@@ -39,8 +49,8 @@ export default function HeaderWrapper() {
         </Typography>
       </Breadcrumbs>
       <Box>
-        <Button variant="contained" sx={{ mr: 1 }}>
-          Login
+        <Button variant="contained" sx={{ mr: 1 }} onClick={onGoogleLogin}>
+          Google Login
         </Button>
         <Button variant="contained" sx={{ mr: 1 }}>
           Logout

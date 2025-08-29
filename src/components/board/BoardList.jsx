@@ -7,16 +7,18 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Box,
 } from "@mui/material"
 import useSWR from "swr"
 import { typicodeFetcher } from "@/swr"
 
 export default function BoardList() {
-  const [list, setList] = useState([])
+  const { data, error, isLoading } = useSWR("/posts", typicodeFetcher, {
+    refreshInterval: 3000,
+    revalidateOnMount: true,
+  })
 
-  const { data } = useSWR("/posts", typicodeFetcher)
-
-  /**   useEffect(() => {
+  /*   useEffect(() => {
     // ;(async () => {
     //   const url = "https://jsonplaceholder.typicode.com/posts"
     //   const { data } = await axios.get(url)
@@ -24,6 +26,11 @@ export default function BoardList() {
     // })()
     // getPosts() //swr 사용
   }, []) */
+
+  if (error)
+    return <Box sx={{ margin: 20, textAlign: "center" }}>Failed to load</Box>
+  if (isLoading)
+    return <Box sx={{ margin: 20, textAlign: "center" }}>Loading...</Box>
 
   return (
     <TableContainer component={Paper}>

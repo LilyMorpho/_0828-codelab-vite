@@ -1,23 +1,34 @@
-import "font-awesome/css/font-awesome.min.css"
+// import "font-awesome/css/font-awesome.min.css"
+import { SWRConfig } from "swr"
 import { BrowserRouter } from "react-router-dom"
 import { Provider as StoreProvider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import { store, persistor } from "./store"
 
-import "../public/css/fonts.css"
-import "../public/css/base.css"
-import "../public/css/shop.css"
+// import "../public/css/fonts.css"
+// import "../public/css/base.css"
+// import "../public/css/shop.css"
+
+import TestProvider from "./providers/TestProviders"
 
 import Containers from "./Containers"
 import { use } from "react"
+
+import { swrValue } from "./swr"
+
+import "@/assets/styles/app.scss"
 
 function App() {
   return (
     <StoreProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <Containers />
-        </BrowserRouter>
+        <SWRConfig value={swrValue}>
+          <BrowserRouter>
+            <TestProvider>
+              <Containers />
+            </TestProvider>
+          </BrowserRouter>
+        </SWRConfig>
       </PersistGate>
     </StoreProvider>
   )

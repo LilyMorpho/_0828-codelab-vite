@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import {
   Table,
   TableBody,
@@ -11,13 +11,20 @@ import {
 } from "@mui/material"
 import useSWR from "swr"
 import { typicodeFetcher } from "@/swr"
+import { TestContext } from "@/providers/TestProviders"
 
 export default function BoardList() {
-  const { data, error, isLoading } = useSWR("/posts", typicodeFetcher, {
-    refreshInterval: 3000,
-    revalidateOnMount: true,
+  const { value, setValue } = useContext(TestContext)
+
+  const { data, error, isLoading } = useSWR("/posts", {
+    // refreshInterval: 3000,
+    // revalidateOnMount: true,
+    // dedupingInterval: 2000,
   })
 
+  useEffect(() => {
+    console.log(value)
+  }, [value])
   /*   useEffect(() => {
     // ;(async () => {
     //   const url = "https://jsonplaceholder.typicode.com/posts"

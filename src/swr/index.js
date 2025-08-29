@@ -36,3 +36,30 @@ export const typicodeFetcher = (url) => {
   const baseURL = "https://jsonplaceholder.typicode.com"
   return api.get(baseURL + url).then((res) => res.data)
 }
+export const swrValue = {
+  suspense: false,
+  fetcher: typicodeFetcher,
+  revalidateIfStale: true,
+  revalidateOnMount: true,
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 0,
+  refreshWhenHidden: false,
+  refreshWhenOffline: false,
+  shouldRetryOnError: false,
+  dedupingInterval: 2000,
+  focusThrottleInterval: 5000,
+  loadingTimeout: 3000,
+  errorRetryInterval: 5000,
+  errorRetryCount: 0,
+  keepPreviousData: true,
+  onLoadingSlow: (key, config) => {},
+  onSuccess: (data, key, config) => {
+    console.log(data, key, config)
+  },
+  onError: (err, key, config) => {},
+  onErrorRetry: (err, key, config, revalidate, revalidateOps) => {},
+  onDiscarded: (key) => {},
+  // compare: (a, b) => {},
+  // isPaused: () => false,
+}
